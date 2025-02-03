@@ -1,9 +1,6 @@
 name: Build PR (only formatting)
 
-on:
-  pull_request:
-    branches:
-      - 'master'
+on: [pull_request]
 
 env:
   OPAMROOT: /home/user/.opam
@@ -47,12 +44,12 @@ jobs:
           cd ${{ env.latest }}
           python ../.github/lint_filesystem.py ${{ env.latest }}
 
-#      - name: Checking ocamlformat
-#        id: check-ocamlformat
-#        continue-on-error: true
-#        run: |
-#          echo "PROPERLY_FORMATTED=y" >> $GITHUB_ENV
-#          cd ${{ env.latest }} && opam exec -- dune build @fmt --profile=release || echo "PROPERLY_FORMATTED=n" >> $GITHUB_ENV
+      #      - name: Checking ocamlformat
+      #        id: check-ocamlformat
+      #        continue-on-error: true
+      #        run: |
+      #          echo "PROPERLY_FORMATTED=y" >> $GITHUB_ENV
+      #          cd ${{ env.latest }} && opam exec -- dune build @fmt --profile=release || echo "PROPERLY_FORMATTED=n" >> $GITHUB_ENV
 
       # We need to install dependencies because repo could have weird version of ocamlformat
       - name: Installing dependencies for ${{ env.latest }}...
