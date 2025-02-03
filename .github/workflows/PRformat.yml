@@ -1,15 +1,12 @@
 name: Build PR (only formatting)
 
-on:
-  pull_request:
-    branches:
-      - 'master'
+on: [pull_request, push]
 
 env:
   OPAMROOT: /home/user/.opam
   OPAMCONFIRMLEVEL: unsafe-yes
 
-jobs:
+jobs: 
   build:
     runs-on: ubuntu-latest
     container:
@@ -45,12 +42,12 @@ jobs:
           cd ${{ env.latest }}
           python ../.github/lint_filesystem.py ${{ env.latest }}
 
-#      - name: Checking ocamlformat
-#        id: check-ocamlformat
-#        continue-on-error: true
-#        run: |
-#          echo "PROPERLY_FORMATTED=y" >> $GITHUB_ENV
-#          cd ${{ env.latest }} && opam exec -- dune build @fmt --profile=release || echo "PROPERLY_FORMATTED=n" >> $GITHUB_ENV
+      #      - name: Checking ocamlformat
+      #        id: check-ocamlformat
+      #        continue-on-error: true
+      #        run: |
+      #          echo "PROPERLY_FORMATTED=y" >> $GITHUB_ENV
+      #          cd ${{ env.latest }} && opam exec -- dune build @fmt --profile=release || echo "PROPERLY_FORMATTED=n" >> $GITHUB_ENV
 
       # TODO: Do we really don't need to install dependencies???
       #- name: Installing dependencies
@@ -60,7 +57,6 @@ jobs:
         run: |
           cd ${{ env.latest }}
           opam exec -- dune build @fmt --profile=release
-
 
       # TODO: onfail post a comment how to fix it
 
