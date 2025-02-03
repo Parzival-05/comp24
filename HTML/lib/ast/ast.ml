@@ -76,7 +76,7 @@ and expr =
   | ETuple of expr_typed * expr_typed * expr_typed list (** Tuple. Examples: (1, 2, 3) *)
   | EClsr of decl * expr_typed (** Closure. Examples: let inc x = x + 1 in inc 5*)
   | EMatch of expr_typed * branch * branch list
-  (** Matching. Examples: match l with | hd::tl -> hd | _ -> [] *)
+  (** Matching. Examples: match l with | hd::tl -> hd | _ -> [ ] *)
 [@@deriving eq, show { with_path = false }]
 
 and expr_typed = expr * typ option [@@deriving eq, show { with_path = false }]
